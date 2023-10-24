@@ -1,0 +1,43 @@
+// LINK : https://www.codingninjas.com/studio/problems/minimum-rate-to-eat-bananas_7449064
+
+// CODE : 
+#include <bits/stdc++.h>
+int CheckRate(vector<int> &v, int h,int mid)
+{
+    long totalHours=0;
+    for(int i=0;i<v.size();i++)
+    {
+        totalHours+=ceil((double)v[i]/(double)mid);
+    }
+    if(totalHours<=h)
+        return 1;
+    else 
+        return 0;
+}
+
+int minimumRateToEatBananas(vector<int> v, int h) {
+    // Write Your Code Here
+
+    int numOfPiles=v.size();
+    if(numOfPiles>h)
+        return -1;
+    
+    int low = 1,
+        high = *max_element(v.begin(),v.end());
+        int mid;
+        
+    while(low <= high)
+    {
+        mid = low+(high-low)/2;
+        if(CheckRate(v,h,mid))
+        {
+            high=mid-1;
+        }
+        else
+        {
+            low=mid+1;
+        }
+    }
+    return low;
+}
+
