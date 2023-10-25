@@ -1,0 +1,56 @@
+// Link : https://www.codingninjas.com/studio/problems/rose-garden_2248080
+
+// Code :
+#include<bits/stdc++.h>
+
+bool CheckDay(vector<int> arr, int k, int m,int day)
+{
+	int numOfBouquet = 0,
+		counter = 0;
+	for(int i=0;i<arr.size();i++)
+	{
+		if(arr[i] <= day)
+		{
+			counter++;
+		}
+		else
+		{
+			numOfBouquet += counter/k;
+			counter=0;
+		}
+	}
+	numOfBouquet += counter/k;
+	if(numOfBouquet>=m)
+		return true;
+	else
+		return false;
+
+}
+
+int roseGarden(vector<int> arr, int k, int m)
+{
+	// Write your code here
+	long long val = m*k;
+	if(val > arr.size())
+		return -1;
+	int low =*min_element(arr.begin(),arr.end()),
+		high = *max_element(arr.begin(),arr.end()),
+		mid;
+
+	while(low <= high)
+	{
+		mid = low+(high-low)/2;
+		//cout<<"Mid : "<<mid;
+		if(CheckDay(arr,k,m,mid))
+		{
+			high = mid-1;
+		}
+		else
+		{
+			low = mid+1;
+		}
+	}
+	return low;
+}
+
+// Complexity : O(N * log(max(arr)-min(arr)+1) )
