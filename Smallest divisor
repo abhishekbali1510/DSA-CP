@@ -1,0 +1,45 @@
+ // Link : https://www.codingninjas.com/studio/problems/smallest-divisor-with-the-given-limit_1755882
+
+// Code :
+#include<bits/stdc++.h>
+
+int checkThreshold(vector<int>& arr, int limit,int divisor)
+{
+	int sum=0;
+	for(int i=0;i<arr.size();i++)
+	{
+		sum += ceil( (double)arr[i]/(double)divisor );
+	}
+	if(sum<=limit)
+		return true;
+	else
+		return false;
+}
+
+int smallestDivisor(vector<int>& arr, int limit)
+{
+	// Write your code here.
+	int size = arr.size();
+	if(size > limit)
+		return -1;
+	
+	int low = 1,
+		high = *max_element(arr.begin(),arr.end()),
+		mid;
+
+	while(low <= high)
+	{
+		mid = low+(high-low)/2;
+		if(checkThreshold(arr,limit,mid))
+		{
+			high = mid-1;
+		}
+		else
+		{
+			low = mid+1;
+		}
+	}
+	return low;
+}
+
+// Complexity : O(N * log(max(arr)))
