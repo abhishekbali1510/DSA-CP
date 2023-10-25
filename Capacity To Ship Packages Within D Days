@@ -1,0 +1,50 @@
+// Link : https://www.codingninjas.com/studio/problems/capacity-to-ship-packages-within-d-days_1229379
+
+// Code : 
+#include<bits/stdc++.h>
+
+int checkCapacity(vector<int> &weights, int days,int capacity)
+{
+    int countDays = 1,
+    load =0 ;
+    for(int i=0;i<weights.size();i++)
+    {
+        if(load + weights[i] > capacity)
+        {
+            countDays++;
+            load = weights[i];
+        }
+        else
+        {
+            load += weights[i];
+        }
+    }
+    if(countDays <= days)
+        return true;
+    else
+        return false;
+}
+
+int leastWeightCapacity(vector<int> &weights, int d)
+{
+    // Write your code here.
+    int low = *max_element(weights.begin(),weights.end()),
+        high = accumulate(weights.begin(), weights.end(), 0),
+        mid;
+
+    while(low<=high)
+    {
+        mid=low+(high-low)/2;
+        if(checkCapacity(weights,d,mid))
+        {
+            high=mid-1;
+        }
+        else
+        {
+            low=mid+1;
+        }
+    }
+    return low;
+}
+
+// Complexity : O(N * log(sum(arr)-max(arr)+1)
