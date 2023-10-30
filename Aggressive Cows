@@ -1,0 +1,42 @@
+// Link : https://www.codingninjas.com/studio/problems/aggressive-cows_1082559
+
+// Code : 
+#include<bits/stdc++.h>
+
+bool checkDist(vector<int> &stalls,int n, int k,int dist)
+{
+    int numOfCowsPlaced=1,lastCowLocation=stalls[0];
+    for(int i=1;i<n;i++)
+    {
+        if(stalls[i]-lastCowLocation>=dist)
+        {
+            numOfCowsPlaced++;
+            lastCowLocation=stalls[i];
+        }
+        if(numOfCowsPlaced>=k)
+            return true;
+    }
+    return false;
+}
+
+int aggressiveCows(vector<int> &stalls, int k)
+{
+    sort(stalls.begin(),stalls.end());
+    int n = stalls.size();
+
+    int low = 1,
+        high = stalls[n-1]-stalls[0],
+        mid;
+    
+    while(low <= high)
+    {
+        mid = low+(high-low)/2;
+        if(checkDist(stalls,n,k,mid))
+            low=mid+1;
+        else
+            high=mid-1;
+    }
+    return high;
+}
+
+// Complexity : O(n logn) + O(log(arr[max)-arr[min)) * O(n)
