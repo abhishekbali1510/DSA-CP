@@ -1,0 +1,43 @@
+// Link : https://www.codingninjas.com/studio/problems/kth-missing-element_893215
+
+// Code : 
+int missingK(vector < int > vec, int n, int k) {
+    // Write your code here.
+    int low = 0,
+        high = n-1,
+        mid,
+        missing;
+
+    while(low<=high)
+    {
+        mid=low+(high-low)/2;
+        missing = vec[mid]-(mid+1);
+        if(missing<k)
+            low=mid+1;
+        else
+            high=mid-1;
+    }
+    //vec[high]+(k-(vec[high]-(high+1)))
+    //k+high+1
+    // k+low
+    return k+low;
+}
+// Complexity : O(log n)
+
+
+// int missingK(vector < int > vec, int n, int k) {
+//     // Write your code here.
+//     for(int i=0;i<n;i++)
+//     {
+//         if(vec[i]<=k)
+//             k++;
+//         else 
+//             break;
+
+//     }
+//     return k;
+// }
+
+// Complexity : O(n)
+
+
