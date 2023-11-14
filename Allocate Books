@@ -1,0 +1,47 @@
+// Link : https://www.codingninjas.com/studio/problems/allocate-books_1090540
+
+// Code : 
+#include <bits/stdc++.h>
+
+bool checkPage(vector<int>& arr, int n, int m,int mid)
+{
+    int numOfStudents = 1,pagesAllocated = 0; 
+    for(int i=0 ; i<n; i++)
+    {
+        if(pagesAllocated+arr[i]<=mid)
+        {
+            pagesAllocated+=arr[i];
+        }
+        else
+        {
+            numOfStudents++;
+            pagesAllocated=arr[i];
+        }
+    }
+    if(numOfStudents<=m)
+        return true;
+    else
+        return false;
+}
+
+int findPages(vector<int>& arr, int n, int m) {
+    // Write your code here.
+    int low = *max_element(arr.begin(),arr.end()),
+        high = accumulate(arr.begin(),arr.end(),0),
+        mid;
+
+    if(m>n)
+        return -1;
+
+    while(low<=high)
+    {
+        mid = low+((high-low)/2);
+        if(checkPage(arr,n,m,mid))
+            high=mid-1;
+        else
+            low=mid+1;
+    }
+    return low;
+}
+
+// Time Complexity : O(n * log( sum(arr)-max(arr) ))
