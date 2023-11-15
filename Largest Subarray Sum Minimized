@@ -1,0 +1,50 @@
+// Link : https://www.codingninjas.com/studio/problems/largest-subarray-sum-minimized_7461751
+
+// Code : 
+
+#include <bits/stdc++.h>
+
+int checkSum(vector<int> a,int n, int k,int sum)
+{
+    int numOfSubArray=1,SummOfTempArray=0;
+    for(int i=0;i<n;i++)
+    {
+        if(SummOfTempArray+a[i]<=sum)
+        {
+            SummOfTempArray+=a[i];
+        }
+        else
+        {
+            numOfSubArray++;
+            SummOfTempArray=a[i];
+        }
+    }
+    if(numOfSubArray<=k)
+        return true;
+    else
+        return false;
+}
+
+int largestSubarraySumMinimized(vector<int> a, int k) {
+    int low = *max_element(a.begin(),a.end()),
+        high = accumulate(a.begin(),a.end(),0),
+        n = a.size(),
+        mid;
+    
+    if(k>n)
+        return -1;
+
+    while(low <= high)
+    {
+        mid=low+(high-low)/2;
+        if(checkSum(a,n,k,mid))
+            high=mid-1;
+        else
+            low=mid+1;
+        
+    }
+    return low;
+
+}
+
+// Time Complexity : O(n* log( sum(arr)-max(arr) ))
