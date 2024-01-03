@@ -1,0 +1,30 @@
+// Problem Link : https://www.codingninjas.com/studio/problems/print-pascal-s-triangle_6917910
+
+// Code : 
+vector<int> generateRow(int rowNum)
+{
+    vector<int> ans;
+    ans.push_back(1);
+    long long res =1;
+    for(int col =1;col<rowNum;col++)
+    {
+        res = res * (rowNum - col);
+        res = res / col;
+        ans.push_back(res);
+    }
+    return ans;
+
+}
+
+vector<vector<int>> pascalTriangle(int N) {
+    // Write your code here.
+    vector<vector<int>> ansTriangle;
+    for(int row=1;row<=N;row++)
+    {
+        ansTriangle.push_back(generateRow(row));
+    }
+    return ansTriangle;
+}
+
+// Time Complexity = O (N*N)
+// Space Complexity = O (1)
