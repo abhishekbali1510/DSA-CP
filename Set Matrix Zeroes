@@ -1,0 +1,60 @@
+//  Problem Link : https://leetcode.com/problems/set-matrix-zeroes/description/
+
+// Code : 
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) 
+    {
+        int rows = matrix.size(),
+            columns = matrix[0].size();
+
+        int firstRow = 1;
+        for(int i=0;i<rows;i++)
+        {
+            for(int j=0;j<columns;j++)
+            {
+                if(i!=0 && matrix[i][j]==0)
+                {
+                    matrix[0][j]=0;
+                    matrix[i][0]=0;
+                }
+                else if(matrix[i][j]==0)
+                {
+                    matrix[0][j]=0;
+                    firstRow =0;
+                }
+            }
+        }
+
+        for(int i=1;i<rows;i++)
+        {
+            for(int j=1;j<columns;j++)
+            {
+                if(!matrix[0][j] || !matrix[i][0])
+                {
+                    matrix[i][j]=0;
+                }
+            }
+        }
+
+        if(!matrix[0][0])
+        {
+            for(int i=0 ;i<rows;i++)
+            {
+                matrix[i][0]=0;
+            }
+        }
+        
+        if(!firstRow)
+        {
+            for(int i=0 ;i<columns;i++)
+            {
+                matrix[0][i]=0;
+            }
+        }
+
+    }
+};
+
+// Time Complexity : O((m*n) + (m*n))
+// Space Complexity : O(1)
