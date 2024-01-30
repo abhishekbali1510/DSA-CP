@@ -1,4 +1,4 @@
-// Problem Link : https://www.codingninjas.com/studio/problems/print-pascal-s-triangle_6917910
+// Problem Link : https://leetcode.com/problems/pascals-triangle/description/
 
 // Code : 
 vector<int> generateRow(int rowNum)
