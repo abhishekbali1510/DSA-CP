@@ -1,0 +1,38 @@
+// Problem Link : https://leetcode.com/problems/find-the-duplicate-number/description/
+
+// Code : 
+int findDuplicate(vector<int>& nums) {
+    int n=nums.size();
+    // for(int i=0;i<n;i++)
+    // {
+    //     int temp = nums[i];
+    //     if(temp<0)
+    //         temp*=-1;
+
+    //     if(nums[temp] < 0)
+    //         return temp;
+    //     nums[temp]*=-1;
+
+    // }
+    int slow = nums[0];
+    int fast = nums[0];
+    do
+    {
+        slow=nums[slow];
+        fast=nums[nums[fast]];
+    }
+    while(slow!=fast);
+
+    fast = nums[0];
+    while(slow!=fast)
+    {
+        slow=nums[slow];
+        fast=nums[fast];
+
+    }
+
+    return slow;
+}
+
+// Time Complexity = O(n)
+// Space Complexity = O(1)
