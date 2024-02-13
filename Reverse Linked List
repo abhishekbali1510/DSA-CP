@@ -1,0 +1,30 @@
+// Problem Link : https://leetcode.com/problems/reverse-linked-list/description/
+
+// Code :
+ListNode* reverseList(ListNode* head) 
+{
+    // ListNode *prv=nullptr,*fast=head;
+    // while(fast!=nullptr)
+    // {
+    //     fast=head->next;
+    //     head->next=prv;
+    //     prv=head;
+    //     head=fast;
+    // }
+    // return prv;
+    
+    if(head == nullptr || head->next == nullptr)
+        return head;
+
+    ListNode* myHead = reverseList(head->next);
+
+    ListNode* front = head->next;
+    front->next = head;
+    head->next = nullptr;
+
+    return myHead;
+}
+
+// Time Complexity : O (n)
+// Space Complexity : O (1)
+
